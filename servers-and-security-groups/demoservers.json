@@ -1,3 +1,6 @@
 [
-   # ADD PARAMETERS HERE FOLLOWING THE VIDEO DEMONSTRATIONS
+    {
+        "ParameterKey": "EnvironmentName",
+        "ParameterValue": "UdacityProject"
+    }
 ]
