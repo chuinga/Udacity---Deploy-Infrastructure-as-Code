@@ -5,10 +5,7 @@ LOG_DIR="./delete-logs"
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 LOG_FILE="$LOG_DIR/delete-log-$TIMESTAMP.txt"
 
-# Create log folder if it doesn't exist
 mkdir -p "$LOG_DIR"
-
-# Redirect output to both terminal and log file
 exec > >(tee -a "$LOG_FILE") 2>&1
 
 echo "📜 Logging to $LOG_FILE"
@@ -21,7 +18,6 @@ user_arn=$(aws sts get-caller-identity --query "Arn" --output text)
 caller_user=$(echo "$user_arn" | sed 's/^.*\///')
 region=$(aws configure get region)
 
-echo ""
 echo "🚨 You are logged in as:"
 echo "👤 User:       $caller_user"
 echo "🔗 ARN:        $user_arn"
@@ -36,7 +32,6 @@ if [[ "$confirm_account" != "y" && "$confirm_account" != "Y" ]]; then
 fi
 
 # === LIST STACKS ===
-echo ""
 echo "🕵️ Scanning for active CloudFormation stacks..."
 
 all_stacks=$(aws cloudformation list-stacks \
@@ -46,7 +41,6 @@ all_stacks=$(aws cloudformation list-stacks \
 if [ -z "$all_stacks" ]; then
   echo "🎉 No active stacks found. You're already zen."
 else
-  echo ""
   echo "🧨 Here are your active stacks:"
   i=1
   declare -a stack_options
@@ -59,28 +53,20 @@ else
   echo ""
   read -p "🔢 Enter the numbers of the stacks you want to delete (e.g., 1 3 4), or press Enter to cancel: " selection
 
-  if [ -z "$selection" ]; then
-    echo "❌ No stacks selected. Standing down."
-    exit 0
-  fi
-
   declare -a selected_stacks
-for num in $selection; do
-  if [[ "$num" =~ ^[0-9]+$ ]] && [[ -n "${stack_options[$num]}" ]]; then
-    selected_stacks+=("${stack_options[$num]}")
-  else
-    echo "⚠️ Invalid selection: '$num'. Skipping."
+  for num in $selection; do
+    if [[ "$num" =~ ^[0-9]+$ ]] && [[ -n "${stack_options[$num]}" ]]; then
+      selected_stacks+=("${stack_options[$num]}")
+    else
+      echo "⚠️ Invalid selection: '$num'. Skipping."
+    fi
+  done
+
+  if [ "${#selected_stacks[@]}" -eq 0 ]; then
+    echo "❌ No valid stacks selected. Aborting deletion."
+    exit 1
   fi
-done
 
-# Stop if no valid stacks were selected
-if [ "${#selected_stacks[@]}" -eq 0 ]; then
-  echo "❌ No valid stacks selected. Aborting deletion."
-  exit 1
-fi
-
-
-  echo ""
   echo "⚠️ You selected the following stacks for deletion:"
   for s in "${selected_stacks[@]}"; do
     echo "   💥 $s"
@@ -98,12 +84,10 @@ fi
     aws cloudformation delete-stack --stack-name "$stack"
   done
 
-  echo ""
   echo "⏳ Watching the destruction unfold..."
   for stack in "${selected_stacks[@]}"; do
     echo "⏳ Waiting for stack: $stack to be deleted (max 5 minutes)..."
     for ((i=1; i<=20; i++)); do
-      # Try to describe the stack
       status=$(aws cloudformation describe-stacks \
         --stack-name "$stack" \
         --query "Stacks[0].StackStatus" \
@@ -123,14 +107,20 @@ fi
         sleep 15
       fi
     done
+
+    # Retry deletion just in case it was skipped earlier due to dependency
+    echo "🔁 Double-checking $stack still exists..."
+    aws cloudformation describe-stacks --stack-name "$stack" &>/dev/null
+    if [ $? -eq 0 ]; then
+      echo "🔁 Retrying deletion of stubborn stack: $stack ..."
+      aws cloudformation delete-stack --stack-name "$stack"
+    fi
   done
 fi
 
 # === CLEANUP OF ORPHANED RESOURCES ===
-echo ""
 echo "🧹 Now sweeping for sneaky resources that love to charge silently..."
 
-# NAT Gateways
 nat_ids=$(aws ec2 describe-nat-gateways --query "NatGateways[*].NatGatewayId" --output text)
 if [ -n "$nat_ids" ]; then
   for nat in $nat_ids; do
@@ -141,7 +131,6 @@ else
   echo "✅ No NAT Gateways detected. No hidden toll booths."
 fi
 
-# Elastic IPs
 eips=$(aws ec2 describe-addresses --query "Addresses[*].AllocationId" --output text)
 if [ -n "$eips" ]; then
   for eip in $eips; do
@@ -152,7 +141,6 @@ else
   echo "✅ No Elastic IPs haunting your bill."
 fi
 
-# EBS Volumes
 volumes=$(aws ec2 describe-volumes --filters Name=status,Values=available \
   --query "Volumes[*].VolumeId" --output text)
 if [ -n "$volumes" ]; then
@@ -164,7 +152,6 @@ else
   echo "✅ No EBS volumes eating space (and money)."
 fi
 
-# Snapshots
 snapshots=$(aws ec2 describe-snapshots --owner-ids self \
   --query "Snapshots[*].SnapshotId" --output text)
 if [ -n "$snapshots" ]; then
@@ -176,7 +163,6 @@ else
   echo "✅ No snapshots found. No nostalgia to pay for."
 fi
 
-# Load Balancers
 lbs=$(aws elbv2 describe-load-balancers --query "LoadBalancers[*].LoadBalancerArn" --output text)
 if [ -n "$lbs" ]; then
   for lb in $lbs; do
@@ -187,6 +173,5 @@ else
   echo "✅ No load balancers detected. It's chaos, but cheap."
 fi
 
-echo ""
 echo "🎯 Cleanup complete. Your AWS account is now squeaky clean and budget-friendly!"
 

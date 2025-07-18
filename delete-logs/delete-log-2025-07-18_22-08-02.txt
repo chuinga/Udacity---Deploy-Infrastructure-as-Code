@@ -1,0 +1,20 @@
+📜 Logging to ./delete-logs/delete-log-2025-07-18_22-08-02.txt
+🔒 Checking AWS identity...
+
+🚨 You are logged in as:
+👤 User:       Udacity
+🔗 ARN:        arn:aws:iam::058264503354:user/Udacity
+🏢 Account ID: 058264503354
+🌍 Region:     us-east-1
+
+❓ Is this the right account to wreak havoc on? (y/N): 
+🕵️ Scanning for active CloudFormation stacks...
+
+🧨 Here are your active stacks:
+ [1] 💣 rds-example
+ [2] 💣 loadbalancingexercise
+ [3] 💣 demoserverstack
+ [4] 💣 ourdemoinfra
+
+🔢 Enter the numbers of the stacks you want to delete (e.g., 1 3 4), or press Enter to cancel: ⚠️ Invalid selection: '5'. Skipping.
+❌ No valid stacks selected. Aborting deletion.

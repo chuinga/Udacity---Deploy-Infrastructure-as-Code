@@ -1,0 +1,104 @@
+📜 Logging to ./delete-logs/delete-log-2025-07-18_22-08-25.txt
+🔒 Checking AWS identity...
+
+🚨 You are logged in as:
+👤 User:       Udacity
+🔗 ARN:        arn:aws:iam::058264503354:user/Udacity
+🏢 Account ID: 058264503354
+🌍 Region:     us-east-1
+
+❓ Is this the right account to wreak havoc on? (y/N): 
+🕵️ Scanning for active CloudFormation stacks...
+
+🧨 Here are your active stacks:
+ [1] 💣 rds-example
+ [2] 💣 loadbalancingexercise
+ [3] 💣 demoserverstack
+ [4] 💣 ourdemoinfra
+
+🔢 Enter the numbers of the stacks you want to delete (e.g., 1 3 4), or press Enter to cancel: 
+⚠️ You selected the following stacks for deletion:
+   💥 rds-example
+   💥 loadbalancingexercise
+   💥 demoserverstack
+   💥 ourdemoinfra
+
+🚨 Final confirmation — delete these stacks? (y/N): 🗑️ Initiating deletion of stack: rds-example ...
+🗑️ Initiating deletion of stack: loadbalancingexercise ...
+🗑️ Initiating deletion of stack: demoserverstack ...
+🗑️ Initiating deletion of stack: ourdemoinfra ...
+
+⏳ Watching the destruction unfold...
+⏳ Waiting for stack: rds-example to be deleted (max 5 minutes)...
+⌛ Still deleting (1/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (2/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (3/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (4/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (5/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (6/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (7/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (8/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (9/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (10/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (11/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (12/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (13/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (14/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (15/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (16/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (17/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (18/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (19/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (20/20)... status: DELETE_IN_PROGRESS
+⏳ Waiting for stack: loadbalancingexercise to be deleted (max 5 minutes)...
+⌛ Still deleting (1/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (2/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (3/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (4/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (5/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (6/20)... status: DELETE_IN_PROGRESS
+✅ Stack loadbalancingexercise no longer exists. Mission accomplished!
+⏳ Waiting for stack: demoserverstack to be deleted (max 5 minutes)...
+✅ Stack demoserverstack no longer exists. Mission accomplished!
+⏳ Waiting for stack: ourdemoinfra to be deleted (max 5 minutes)...
+⌛ Still deleting (1/20)... status: CREATE_COMPLETE
+⌛ Still deleting (2/20)... status: CREATE_COMPLETE
+⌛ Still deleting (3/20)... status: CREATE_COMPLETE
+⌛ Still deleting (4/20)... status: CREATE_COMPLETE
+⌛ Still deleting (5/20)... status: CREATE_COMPLETE
+⌛ Still deleting (6/20)... status: CREATE_COMPLETE
+⌛ Still deleting (7/20)... status: CREATE_COMPLETE
+⌛ Still deleting (8/20)... status: CREATE_COMPLETE
+⌛ Still deleting (9/20)... status: CREATE_COMPLETE
+⌛ Still deleting (10/20)... status: CREATE_COMPLETE
+⌛ Still deleting (11/20)... status: CREATE_COMPLETE
+⌛ Still deleting (12/20)... status: CREATE_COMPLETE
+⌛ Still deleting (13/20)... status: CREATE_COMPLETE
+⌛ Still deleting (14/20)... status: CREATE_COMPLETE
+⌛ Still deleting (15/20)... status: CREATE_COMPLETE
+⌛ Still deleting (16/20)... status: CREATE_COMPLETE
+⌛ Still deleting (17/20)... status: CREATE_COMPLETE
+⌛ Still deleting (18/20)... status: CREATE_COMPLETE
+⌛ Still deleting (19/20)... status: CREATE_COMPLETE
+⌛ Still deleting (20/20)... status: CREATE_COMPLETE
+
+🧹 Now sweeping for sneaky resources that love to charge silently...
+🚪 Deleting NAT Gateway: nat-01ab8a1d3abb2b344 (it's not free, my friend)
+{
+    "NatGatewayId": "nat-01ab8a1d3abb2b344"
+}
+🚪 Deleting NAT Gateway: nat-0a3ba25bbe03332fb (it's not free, my friend)
+{
+    "NatGatewayId": "nat-0a3ba25bbe03332fb"
+}
+📡 Releasing Elastic IP: eipalloc-0e4c3eb7b27da9a4e — it shall float freely.
+
+An error occurred (AuthFailure) when calling the ReleaseAddress operation: You do not have permission to access the specified resource.
+📡 Releasing Elastic IP: eipalloc-0c955cd8de2c9f569 — it shall float freely.
+
+An error occurred (AuthFailure) when calling the ReleaseAddress operation: You do not have permission to access the specified resource.
+✅ No EBS volumes eating space (and money).
+✅ No snapshots found. No nostalgia to pay for.
+✅ No load balancers detected. It's chaos, but cheap.
+
+🎯 Cleanup complete. Your AWS account is now squeaky clean and budget-friendly!
