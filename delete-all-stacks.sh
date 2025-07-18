@@ -1,8 +1,20 @@
 #!/bin/bash
 
-# SAFETY CHECK BEFORE NUKING ANYTHING
+# === CREATE LOG FOLDER AND FILE ===
+LOG_DIR="./delete-logs"
+TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
+LOG_FILE="$LOG_DIR/delete-log-$TIMESTAMP.txt"
 
-echo "🔒 Gathering AWS identity information..."
+# Create log folder if it doesn't exist
+mkdir -p "$LOG_DIR"
+
+# Redirect output to both terminal and log file
+exec > >(tee -a "$LOG_FILE") 2>&1
+
+echo "📜 Logging to $LOG_FILE"
+
+# === AWS ACCOUNT SAFETY CHECK ===
+echo "🔒 Checking AWS identity..."
 
 account_id=$(aws sts get-caller-identity --query "Account" --output text)
 user_arn=$(aws sts get-caller-identity --query "Arn" --output text)
@@ -10,115 +22,146 @@ caller_user=$(echo "$user_arn" | sed 's/^.*\///')
 region=$(aws configure get region)
 
 echo ""
-echo "🚨 You are currently authenticated as:"
+echo "🚨 You are logged in as:"
 echo "👤 User:       $caller_user"
 echo "🔗 ARN:        $user_arn"
 echo "🏢 Account ID: $account_id"
 echo "🌍 Region:     $region"
 echo ""
 
-read -p "❓ Is this the correct AWS account to clean up? (y/N): " confirm_account
+read -p "❓ Is this the right account to wreak havoc on? (y/N): " confirm_account
 if [[ "$confirm_account" != "y" && "$confirm_account" != "Y" ]]; then
-  echo "🛑 Aborting. Better safe than sorry."
+  echo "🛑 Good call. Destruction postponed."
   exit 1
 fi
 
-# NUKING EVERYTHING
-
+# === LIST STACKS ===
+echo ""
 echo "🕵️ Scanning for active CloudFormation stacks..."
 
-# Get active stacks
-stacks=$(aws cloudformation list-stacks \
+all_stacks=$(aws cloudformation list-stacks \
   --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE \
   --query "StackSummaries[*].StackName" --output text)
 
-if [ -z "$stacks" ]; then
-  echo "🎉 No active stacks found. Your AWS account is cleaner than your kitchen."
+if [ -z "$all_stacks" ]; then
+  echo "🎉 No active stacks found. You're already zen."
 else
-  echo "🧨 The following stacks are about to face judgement day:"
-  for stack in $stacks; do
-    echo "💣 $stack"
+  echo ""
+  echo "🧨 Here are your active stacks:"
+  i=1
+  declare -a stack_options
+  for stack in $all_stacks; do
+    echo " [$i] 💣 $stack"
+    stack_options[$i]=$stack
+    ((i++))
   done
 
-  read -p "⚠️ Are you sure you want to delete ALL these stacks? (y/N): " confirm
-  if [[ "$confirm" != "y" && "$confirm" != "Y" ]]; then
-    echo "❌ Operation aborted. Nothing was harmed in the making of this script."
+  echo ""
+  read -p "🔢 Enter the numbers of the stacks you want to delete (e.g., 1 3 4), or press Enter to cancel: " selection
+
+  if [ -z "$selection" ]; then
+    echo "❌ No stacks selected. Standing down."
+    exit 0
+  fi
+
+  declare -a selected_stacks
+for num in $selection; do
+  if [[ "$num" =~ ^[0-9]+$ ]] && [[ -n "${stack_options[$num]}" ]]; then
+    selected_stacks+=("${stack_options[$num]}")
+  else
+    echo "⚠️ Invalid selection: '$num'. Skipping."
+  fi
+done
+
+# Stop if no valid stacks were selected
+if [ "${#selected_stacks[@]}" -eq 0 ]; then
+  echo "❌ No valid stacks selected. Aborting deletion."
+  exit 1
+fi
+
+
+  echo ""
+  echo "⚠️ You selected the following stacks for deletion:"
+  for s in "${selected_stacks[@]}"; do
+    echo "   💥 $s"
+  done
+  echo ""
+
+  read -p "🚨 Final confirmation — delete these stacks? (y/N): " confirm_delete
+  if [[ "$confirm_delete" != "y" && "$confirm_delete" != "Y" ]]; then
+    echo "🙅‍♂️ Operation cancelled. Infrastructure spared."
     exit 1
   fi
 
-  for stack in $stacks; do
-    echo "🗑️ Terminating stack: $stack ..."
+  for stack in "${selected_stacks[@]}"; do
+    echo "🗑️ Initiating deletion of stack: $stack ..."
     aws cloudformation delete-stack --stack-name "$stack"
   done
 
-  echo "⏳ Waiting for the AWS gods to finish the purge..."
-  for stack in $stacks; do
-    aws cloudformation wait stack-delete-complete --stack-name "$stack"
-    echo "✅ Stack $stack is now part of AWS history."
+  echo ""
+  echo "⏳ Watching the destruction unfold..."
+  for stack in "${selected_stacks[@]}"; do
+    echo "⏳ Waiting for stack: $stack to be deleted (max 5 minutes)..."
+    for ((i=1; i<=20; i++)); do
+      # Try to describe the stack
+      status=$(aws cloudformation describe-stacks \
+        --stack-name "$stack" \
+        --query "Stacks[0].StackStatus" \
+        --output text 2>/dev/null)
+
+      if [[ "$status" == "DELETE_COMPLETE" ]]; then
+        echo "✅ Stack $stack is gone. Oblivion achieved."
+        break
+      elif [[ "$status" == "DELETE_FAILED" ]]; then
+        echo "❌ Deletion failed for $stack. Something resisted. Maybe it's Skynet."
+        break
+      elif [[ "$status" == "" ]]; then
+        echo "✅ Stack $stack no longer exists. Mission accomplished!"
+        break
+      else
+        echo "⌛ Still deleting ($i/20)... status: $status"
+        sleep 15
+      fi
+    done
   done
 fi
 
-# Check for any remaining stacks
-echo "🔁 Double-checking for stubborn stacks..."
-remaining_stacks=$(aws cloudformation list-stacks \
-  --stack-status-filter CREATE_COMPLETE UPDATE_COMPLETE \
-  --query "StackSummaries[*].StackName" --output text)
-
-if [ -n "$remaining_stacks" ]; then
-  echo "😈 These naughty stacks refused to leave:"
-  echo "$remaining_stacks"
-  read -p "💪 Wanna give it one more try? (y/N): " try_again
-  if [[ "$try_again" == "y" || "$try_again" == "Y" ]]; then
-    for stack in $remaining_stacks; do
-      echo "🔨 Retrying: $stack"
-      aws cloudformation delete-stack --stack-name "$stack"
-      aws cloudformation wait stack-delete-complete --stack-name "$stack"
-      echo "✅ Finally removed: $stack"
-    done
-  fi
-else
-  echo "✅ No remaining stacks. AWS is as empty as your bank account after re:Invent."
-fi
-
-# Clean up orphaned cost-generating resources
+# === CLEANUP OF ORPHANED RESOURCES ===
 echo ""
-echo "🧹 Scanning for sneaky resources that are billing you behind your back..."
+echo "🧹 Now sweeping for sneaky resources that love to charge silently..."
 
 # NAT Gateways
-nat_ids=$(aws ec2 describe-nat-gateways \
-  --query "NatGateways[*].NatGatewayId" --output text)
+nat_ids=$(aws ec2 describe-nat-gateways --query "NatGateways[*].NatGatewayId" --output text)
 if [ -n "$nat_ids" ]; then
   for nat in $nat_ids; do
-    echo "🚪 Nuking NAT Gateway: $nat"
+    echo "🚪 Deleting NAT Gateway: $nat (it's not free, my friend)"
     aws ec2 delete-nat-gateway --nat-gateway-id "$nat"
   done
 else
-  echo "✅ No NAT Gateways detected. You’re not paying to route air."
+  echo "✅ No NAT Gateways detected. No hidden toll booths."
 fi
 
 # Elastic IPs
-eips=$(aws ec2 describe-addresses \
-  --query "Addresses[*].AllocationId" --output text)
+eips=$(aws ec2 describe-addresses --query "Addresses[*].AllocationId" --output text)
 if [ -n "$eips" ]; then
   for eip in $eips; do
-    echo "📡 Releasing Elastic IP: $eip"
+    echo "📡 Releasing Elastic IP: $eip — it shall float freely."
     aws ec2 release-address --allocation-id "$eip"
   done
 else
-  echo "✅ No Elastic IPs floating around like haunted ghosts."
+  echo "✅ No Elastic IPs haunting your bill."
 fi
 
 # EBS Volumes
-volumes=$(aws ec2 describe-volumes \
-  --filters Name=status,Values=available \
+volumes=$(aws ec2 describe-volumes --filters Name=status,Values=available \
   --query "Volumes[*].VolumeId" --output text)
 if [ -n "$volumes" ]; then
   for vol in $volumes; do
-    echo "💽 Deleting lonely EBS volume: $vol"
+    echo "💽 Deleting unattached EBS volume: $vol — it's just sitting there!"
     aws ec2 delete-volume --volume-id "$vol"
   done
 else
-  echo "✅ No unattached EBS volumes draining your wallet."
+  echo "✅ No EBS volumes eating space (and money)."
 fi
 
 # Snapshots
@@ -126,24 +169,24 @@ snapshots=$(aws ec2 describe-snapshots --owner-ids self \
   --query "Snapshots[*].SnapshotId" --output text)
 if [ -n "$snapshots" ]; then
   for snap in $snapshots; do
-    echo "📸 Erasing snapshot: $snap (memories not included)"
+    echo "📸 Deleting snapshot: $snap — because memories fade."
     aws ec2 delete-snapshot --snapshot-id "$snap"
   done
 else
-  echo "✅ No snapshots. Nothing to remember. Nothing to pay."
+  echo "✅ No snapshots found. No nostalgia to pay for."
 fi
 
 # Load Balancers
-lbs=$(aws elbv2 describe-load-balancers \
-  --query "LoadBalancers[*].LoadBalancerArn" --output text)
+lbs=$(aws elbv2 describe-load-balancers --query "LoadBalancers[*].LoadBalancerArn" --output text)
 if [ -n "$lbs" ]; then
   for lb in $lbs; do
-    echo "⚖️ Deleting load balancer: $lb"
+    echo "⚖️ Deleting load balancer: $lb — it’s just balancing nothing now."
     aws elbv2 delete-load-balancer --load-balancer-arn "$lb"
   done
 else
-  echo "✅ No load balancers left balancing nothing."
+  echo "✅ No load balancers detected. It's chaos, but cheap."
 fi
 
 echo ""
-echo "🚀 Cleanup complete. You're now safe from surprise AWS bills (for now)."
+echo "🎯 Cleanup complete. Your AWS account is now squeaky clean and budget-friendly!"
+

@@ -1,0 +1,67 @@
+📜 Logging to ./delete-logs/delete-log-2025-07-18_18-21-17.txt
+🔒 Checking AWS identity...
+
+🚨 You are logged in as:
+👤 User:       Udacity
+🔗 ARN:        arn:aws:iam::058264503354:user/Udacity
+🏢 Account ID: 058264503354
+🌍 Region:     us-east-1
+
+❓ Is this the right account to wreak havoc on? (y/N): 
+🕵️ Scanning for active CloudFormation stacks...
+
+🧨 Here are your active stacks:
+ [1] 💣 ourdemoinfra
+
+🔢 Enter the numbers of the stacks you want to delete (e.g., 1 3 4), or press Enter to cancel: 
+⚠️ You selected the following stacks for deletion:
+   💥 
+   💥 
+   💥 
+
+🚨 Final confirmation — delete these stacks? (y/N): 🗑️ Initiating deletion of stack:  ...
+
+An error occurred (ValidationError) when calling the DeleteStack operation: 2 validation errors detected: Value '' at 'stackName' failed to satisfy constraint: Member must have length greater than or equal to 1; Value '' at 'stackName' failed to satisfy constraint: Member must satisfy regular expression pattern: [a-zA-Z][-a-zA-Z0-9]*|arn:[-a-zA-Z0-9:/._+]*
+🗑️ Initiating deletion of stack:  ...
+
+An error occurred (ValidationError) when calling the DeleteStack operation: 2 validation errors detected: Value '' at 'stackName' failed to satisfy constraint: Member must have length greater than or equal to 1; Value '' at 'stackName' failed to satisfy constraint: Member must satisfy regular expression pattern: [a-zA-Z][-a-zA-Z0-9]*|arn:[-a-zA-Z0-9:/._+]*
+🗑️ Initiating deletion of stack:  ...
+
+An error occurred (ValidationError) when calling the DeleteStack operation: 2 validation errors detected: Value '' at 'stackName' failed to satisfy constraint: Member must have length greater than or equal to 1; Value '' at 'stackName' failed to satisfy constraint: Member must satisfy regular expression pattern: [a-zA-Z][-a-zA-Z0-9]*|arn:[-a-zA-Z0-9:/._+]*
+
+⏳ Watching the destruction unfold...
+⏳ Waiting for stack:  to be deleted (max 5 minutes)...
+✅ Stack  no longer exists. Mission accomplished!
+⏳ Waiting for stack:  to be deleted (max 5 minutes)...
+✅ Stack  no longer exists. Mission accomplished!
+⏳ Waiting for stack:  to be deleted (max 5 minutes)...
+✅ Stack  no longer exists. Mission accomplished!
+
+🧹 Now sweeping for sneaky resources that love to charge silently...
+🚪 Deleting NAT Gateway: nat-041e20c7ac9cd8c3a (it's not free, my friend)
+{
+    "NatGatewayId": "nat-041e20c7ac9cd8c3a"
+}
+🚪 Deleting NAT Gateway: nat-0a8dccf2fa573cf8b (it's not free, my friend)
+{
+    "NatGatewayId": "nat-0a8dccf2fa573cf8b"
+}
+🚪 Deleting NAT Gateway: nat-00017ebb78cd338c7 (it's not free, my friend)
+{
+    "NatGatewayId": "nat-00017ebb78cd338c7"
+}
+🚪 Deleting NAT Gateway: nat-07e8ecb717e48a13a (it's not free, my friend)
+{
+    "NatGatewayId": "nat-07e8ecb717e48a13a"
+}
+📡 Releasing Elastic IP: eipalloc-09952de1cbd73f3ec — it shall float freely.
+
+An error occurred (AuthFailure) when calling the ReleaseAddress operation: You do not have permission to access the specified resource.
+📡 Releasing Elastic IP: eipalloc-0207fbc773069cc69 — it shall float freely.
+
+An error occurred (AuthFailure) when calling the ReleaseAddress operation: You do not have permission to access the specified resource.
+✅ No EBS volumes eating space (and money).
+✅ No snapshots found. No nostalgia to pay for.
+✅ No load balancers detected. It's chaos, but cheap.
+
+🎯 Cleanup complete. Your AWS account is now squeaky clean and budget-friendly!
