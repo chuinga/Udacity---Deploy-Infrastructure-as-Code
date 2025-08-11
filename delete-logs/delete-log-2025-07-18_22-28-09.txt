@@ -1,0 +1,24 @@
+📜 Logging to ./delete-logs/delete-log-2025-07-18_22-28-09.txt
+🔒 Checking AWS identity...
+🚨 You are logged in as:
+👤 User:       Udacity
+🔗 ARN:        arn:aws:iam::058264503354:user/Udacity
+🏢 Account ID: 058264503354
+🌍 Region:     us-east-1
+
+❓ Is this the right account to wreak havoc on? (y/N): 🕵️ Scanning for active CloudFormation stacks...
+🎉 No active stacks found. You're already zen.
+🧹 Now sweeping for sneaky resources that love to charge silently...
+🚪 Deleting NAT Gateway: nat-01ab8a1d3abb2b344 (it's not free, my friend)
+{
+    "NatGatewayId": "nat-01ab8a1d3abb2b344"
+}
+🚪 Deleting NAT Gateway: nat-0a3ba25bbe03332fb (it's not free, my friend)
+{
+    "NatGatewayId": "nat-0a3ba25bbe03332fb"
+}
+✅ No Elastic IPs haunting your bill.
+✅ No EBS volumes eating space (and money).
+✅ No snapshots found. No nostalgia to pay for.
+✅ No load balancers detected. It's chaos, but cheap.
+🎯 Cleanup complete. Your AWS account is now squeaky clean and budget-friendly!

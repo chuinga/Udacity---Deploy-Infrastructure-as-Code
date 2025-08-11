@@ -1,0 +1,17 @@
+📜 Logging to ./delete-logs/delete-log-2025-07-18_22-27-22.txt
+🔒 Checking AWS identity...
+🚨 You are logged in as:
+👤 User:       Miguel
+🔗 ARN:        arn:aws:iam::169565460506:user/Miguel
+🏢 Account ID: 169565460506
+🌍 Region:     us-east-1
+
+❓ Is this the right account to wreak havoc on? (y/N): 🕵️ Scanning for active CloudFormation stacks...
+🎉 No active stacks found. You're already zen.
+🧹 Now sweeping for sneaky resources that love to charge silently...
+✅ No NAT Gateways detected. No hidden toll booths.
+✅ No Elastic IPs haunting your bill.
+✅ No EBS volumes eating space (and money).
+✅ No snapshots found. No nostalgia to pay for.
+✅ No load balancers detected. It's chaos, but cheap.
+🎯 Cleanup complete. Your AWS account is now squeaky clean and budget-friendly!

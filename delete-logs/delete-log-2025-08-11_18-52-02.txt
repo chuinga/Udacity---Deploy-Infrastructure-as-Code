@@ -1,0 +1,73 @@
+📜 Logging to ./delete-logs/delete-log-2025-08-11_18-52-02.txt
+🔒 Checking AWS identity...
+🚨 You are logged in as:
+👤 User:       Udacity
+🔗 ARN:        arn:aws:iam::058264503354:user/Udacity
+🏢 Account ID: 058264503354
+🌍 Region:     us-east-1
+
+❓ Is this the right account to wreak havoc on? (y/N): 🕵️ Scanning for active CloudFormation stacks...
+🧨 Here are your active stacks:
+ [1] 💣 mysqlexercise
+ [2] 💣 rds-example
+ [3] 💣 ourdemoinfra
+
+🔢 Enter the numbers of the stacks you want to delete (e.g., 1 3 4), or press Enter to cancel: ⚠️ You selected the following stacks for deletion:
+   💥 mysqlexercise
+   💥 rds-example
+   💥 ourdemoinfra
+
+🚨 Final confirmation — delete these stacks? (y/N): 🗑️ Initiating deletion of stack: mysqlexercise ...
+🗑️ Initiating deletion of stack: rds-example ...
+🗑️ Initiating deletion of stack: ourdemoinfra ...
+⏳ Watching the destruction unfold...
+⏳ Waiting for stack: mysqlexercise to be deleted (max 5 minutes)...
+⌛ Still deleting (1/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (2/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (3/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (4/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (5/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (6/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (7/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (8/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (9/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (10/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (11/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (12/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (13/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (14/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (15/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (16/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (17/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (18/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (19/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (20/20)... status: DELETE_IN_PROGRESS
+🔁 Double-checking mysqlexercise still exists...
+🔁 Retrying deletion of stubborn stack: mysqlexercise ...
+⏳ Waiting for stack: rds-example to be deleted (max 5 minutes)...
+⌛ Still deleting (1/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (2/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (3/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (4/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (5/20)... status: DELETE_IN_PROGRESS
+⌛ Still deleting (6/20)... status: DELETE_IN_PROGRESS
+✅ Stack rds-example no longer exists. Mission accomplished!
+🔁 Double-checking rds-example still exists...
+⏳ Waiting for stack: ourdemoinfra to be deleted (max 5 minutes)...
+⌛ Still deleting (1/20)... status: CREATE_COMPLETE
+⌛ Still deleting (2/20)... status: CREATE_COMPLETE
+⌛ Still deleting (3/20)... status: CREATE_COMPLETE
+⌛ Still deleting (4/20)... status: CREATE_COMPLETE
+⌛ Still deleting (5/20)... status: CREATE_COMPLETE
+⌛ Still deleting (6/20)... status: CREATE_COMPLETE
+⌛ Still deleting (7/20)... status: CREATE_COMPLETE
+⌛ Still deleting (8/20)... status: CREATE_COMPLETE
+⌛ Still deleting (9/20)... status: CREATE_COMPLETE
+⌛ Still deleting (10/20)... status: CREATE_COMPLETE
+⌛ Still deleting (11/20)... status: CREATE_COMPLETE
+⌛ Still deleting (12/20)... status: CREATE_COMPLETE
+⌛ Still deleting (13/20)... status: CREATE_COMPLETE
+⌛ Still deleting (14/20)... status: CREATE_COMPLETE
+⌛ Still deleting (15/20)... status: CREATE_COMPLETE
+⌛ Still deleting (16/20)... status: CREATE_COMPLETE
+⌛ Still deleting (17/20)... status: CREATE_COMPLETE
