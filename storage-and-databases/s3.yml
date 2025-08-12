@@ -2,7 +2,7 @@ Resources:
   S3Bucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub "udacity-s3-example-with-a-random-suffix"
+      BucketName: !Sub "udacity-s3-example-chuinga1981"
       AccessControl: Private
       VersioningConfiguration:
         Status: Enabled
