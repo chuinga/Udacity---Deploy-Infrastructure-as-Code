@@ -16,4 +16,4 @@ Resources:
       MapPublicIpOnLaunch: true
       Tags: 
       - Key: Name 
-        Value: udacity-my-subnet
+        Value: udacity-my-subnet2
