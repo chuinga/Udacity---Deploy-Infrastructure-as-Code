@@ -1,0 +1,246 @@
+📜 Logging to ./delete-logs/delete-log-2025-08-16_19-04-04.txt
+🔒 Checking AWS identity...
+🚨 You are logged in as:
+👤 User:       Udacity
+🔗 ARN:        arn:aws:iam::058264503354:user/Udacity
+🏢 Account ID: 058264503354
+🌍 Region:     us-east-1
+
+❓ Is this the right account to wreak havoc on? (y/N): 🕵️ Scanning for active CloudFormation stacks...
+🎉 No active stacks found.
+➡️  Proceeding directly to orphaned resource sweep... (important!)
+
+🧹 Starting orphaned resource sweep (these often incur charges).
+✅ No EC2 instances.
+✅ No NAT Gateways.
+✅ No Elastic IPs.
+✅ No unattached EBS volumes.
+✅ No load balancers.
+✅ No VPC endpoints.
+🗄️ RDS instances: mywebapp-rds-instance
+   ➤ DELETE ALL RDS instances (skip final snapshot)? (y/N):    🔐 Deletion protection is ON for mywebapp-rds-instance.
+      ➤ Disable deletion protection on mywebapp-rds-instance and continue? (y/N): {
+    "DBInstance": {
+        "DBInstanceIdentifier": "mywebapp-rds-instance",
+        "DBInstanceClass": "db.t3.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "available",
+        "MasterUsername": "myusername",
+        "DBName": "mywebapp",
+        "Endpoint": {
+            "Address": "mywebapp-rds-instance.chu6wsc26frq.us-east-1.rds.amazonaws.com",
+            "Port": 3306,
+            "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "AllocatedStorage": 20,
+        "InstanceCreateTime": "2025-08-11T17:44:29.689000+00:00",
+        "PreferredBackupWindow": "06:13-06:43",
+        "BackupRetentionPeriod": 1,
+        "DBSecurityGroups": [],
+        "VpcSecurityGroups": [
+            {
+                "VpcSecurityGroupId": "sg-08a342e9e0cd49c90",
+                "Status": "active"
+            }
+        ],
+        "DBParameterGroups": [
+            {
+                "DBParameterGroupName": "mysqlexercise-dbparametergroup-uwdhz0rzawwp",
+                "ParameterApplyStatus": "in-sync"
+            }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+            "DBSubnetGroupName": "mysqlexercise-dbsubnetgroup-3tlskfcskzpm",
+            "DBSubnetGroupDescription": "DB subnet group for MyWebAPP database",
+            "VpcId": "vpc-053485700095c33b3",
+            "SubnetGroupStatus": "Complete",
+            "Subnets": [
+                {
+                    "SubnetIdentifier": "subnet-0a072600e06b4bafb",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-east-1a"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-0fc5df4de98616130",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-east-1b"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                }
+            ]
+        },
+        "PreferredMaintenanceWindow": "sun:03:23-sun:03:53",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2025-08-16T18:00:00+00:00",
+        "MultiAZ": false,
+        "EngineVersion": "8.0.43",
+        "AutoMinorVersionUpgrade": true,
+        "ReadReplicaDBInstanceIdentifiers": [],
+        "LicenseModel": "general-public-license",
+        "OptionGroupMemberships": [
+            {
+                "OptionGroupName": "default:mysql-8-0",
+                "Status": "in-sync"
+            }
+        ],
+        "PubliclyAccessible": false,
+        "StorageType": "gp2",
+        "DbInstancePort": 0,
+        "StorageEncrypted": false,
+        "DbiResourceId": "db-SKW3Z4MRLEYUNDGB433LOBYEOI",
+        "CACertificateIdentifier": "rds-ca-rsa2048-g1",
+        "DomainMemberships": [],
+        "CopyTagsToSnapshot": false,
+        "MonitoringInterval": 0,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:058264503354:db:mywebapp-rds-instance",
+        "IAMDatabaseAuthenticationEnabled": false,
+        "DatabaseInsightsMode": "standard",
+        "PerformanceInsightsEnabled": false,
+        "DeletionProtection": false,
+        "AssociatedRoles": [],
+        "TagList": [
+            {
+                "Key": "aws:cloudformation:stack-id",
+                "Value": "arn:aws:cloudformation:us-east-1:058264503354:stack/mysqlexercise/6ba4a4c0-76d1-11f0-803f-0affd188af27"
+            },
+            {
+                "Key": "aws:cloudformation:stack-name",
+                "Value": "mysqlexercise"
+            },
+            {
+                "Key": "aws:cloudformation:logical-id",
+                "Value": "DBInstance"
+            }
+        ],
+        "CustomerOwnedIpEnabled": false,
+        "BackupTarget": "region",
+        "NetworkType": "IPV4",
+        "StorageThroughput": 0,
+        "CertificateDetails": {
+            "CAIdentifier": "rds-ca-rsa2048-g1",
+            "ValidTill": "2026-08-11T17:42:33+00:00"
+        },
+        "DedicatedLogVolume": false,
+        "EngineLifecycleSupport": "open-source-rds-extended-support"
+    }
+}
+{
+    "DBInstance": {
+        "DBInstanceIdentifier": "mywebapp-rds-instance",
+        "DBInstanceClass": "db.t3.micro",
+        "Engine": "mysql",
+        "DBInstanceStatus": "deleting",
+        "MasterUsername": "myusername",
+        "DBName": "mywebapp",
+        "Endpoint": {
+            "Address": "mywebapp-rds-instance.chu6wsc26frq.us-east-1.rds.amazonaws.com",
+            "Port": 3306,
+            "HostedZoneId": "Z2R2ITUGPM61AM"
+        },
+        "AllocatedStorage": 20,
+        "InstanceCreateTime": "2025-08-11T17:44:29.689000+00:00",
+        "PreferredBackupWindow": "06:13-06:43",
+        "BackupRetentionPeriod": 1,
+        "DBSecurityGroups": [],
+        "VpcSecurityGroups": [
+            {
+                "VpcSecurityGroupId": "sg-08a342e9e0cd49c90",
+                "Status": "active"
+            }
+        ],
+        "DBParameterGroups": [
+            {
+                "DBParameterGroupName": "mysqlexercise-dbparametergroup-uwdhz0rzawwp",
+                "ParameterApplyStatus": "in-sync"
+            }
+        ],
+        "AvailabilityZone": "us-east-1a",
+        "DBSubnetGroup": {
+            "DBSubnetGroupName": "mysqlexercise-dbsubnetgroup-3tlskfcskzpm",
+            "DBSubnetGroupDescription": "DB subnet group for MyWebAPP database",
+            "VpcId": "vpc-053485700095c33b3",
+            "SubnetGroupStatus": "Complete",
+            "Subnets": [
+                {
+                    "SubnetIdentifier": "subnet-0a072600e06b4bafb",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-east-1a"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                },
+                {
+                    "SubnetIdentifier": "subnet-0fc5df4de98616130",
+                    "SubnetAvailabilityZone": {
+                        "Name": "us-east-1b"
+                    },
+                    "SubnetOutpost": {},
+                    "SubnetStatus": "Active"
+                }
+            ]
+        },
+        "PreferredMaintenanceWindow": "sun:03:23-sun:03:53",
+        "PendingModifiedValues": {},
+        "LatestRestorableTime": "2025-08-16T18:00:00+00:00",
+        "MultiAZ": false,
+        "EngineVersion": "8.0.43",
+        "AutoMinorVersionUpgrade": true,
+        "ReadReplicaDBInstanceIdentifiers": [],
+        "LicenseModel": "general-public-license",
+        "OptionGroupMemberships": [
+            {
+                "OptionGroupName": "default:mysql-8-0",
+                "Status": "in-sync"
+            }
+        ],
+        "PubliclyAccessible": false,
+        "StorageType": "gp2",
+        "DbInstancePort": 0,
+        "StorageEncrypted": false,
+        "DbiResourceId": "db-SKW3Z4MRLEYUNDGB433LOBYEOI",
+        "CACertificateIdentifier": "",
+        "DomainMemberships": [],
+        "CopyTagsToSnapshot": false,
+        "MonitoringInterval": 0,
+        "DBInstanceArn": "arn:aws:rds:us-east-1:058264503354:db:mywebapp-rds-instance",
+        "IAMDatabaseAuthenticationEnabled": false,
+        "DatabaseInsightsMode": "standard",
+        "PerformanceInsightsEnabled": false,
+        "DeletionProtection": false,
+        "AssociatedRoles": [],
+        "TagList": [
+            {
+                "Key": "aws:cloudformation:stack-id",
+                "Value": "arn:aws:cloudformation:us-east-1:058264503354:stack/mysqlexercise/6ba4a4c0-76d1-11f0-803f-0affd188af27"
+            },
+            {
+                "Key": "aws:cloudformation:stack-name",
+                "Value": "mysqlexercise"
+            },
+            {
+                "Key": "aws:cloudformation:logical-id",
+                "Value": "DBInstance"
+            }
+        ],
+        "CustomerOwnedIpEnabled": false,
+        "BackupTarget": "region",
+        "NetworkType": "IPV4",
+        "StorageThroughput": 0,
+        "DedicatedLogVolume": false,
+        "EngineLifecycleSupport": "open-source-rds-extended-support"
+    }
+}
+      ⏳ Waiting for mywebapp-rds-instance to be deleted...
+✅ No manual RDS snapshots.
+✅ No S3 buckets.
+✅ No Glue resources.
+✅ No Amazon Location resources.
+✅ No customer-managed KMS keys.
+✅ No SNS topics.
+
+🎯 Sweep complete. Re-run the script until it finds nothing. Keep an eye on Cost Explorer for the next day to confirm charges drop.

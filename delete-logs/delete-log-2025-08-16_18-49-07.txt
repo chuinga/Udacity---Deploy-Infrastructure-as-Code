@@ -1,0 +1,124 @@
+📜 Logging to ./delete-logs/delete-log-2025-08-16_18-49-07.txt
+🔒 Checking AWS identity...
+🚨 You are logged in as:
+👤 User:       Udacity
+🔗 ARN:        arn:aws:iam::058264503354:user/Udacity
+🏢 Account ID: 058264503354
+🌍 Region:     us-east-1
+
+❓ Is this the right account to wreak havoc on? (y/N): 🕵️ Scanning for active CloudFormation stacks...
+🎉 No active stacks found.
+➡️  Proceeding directly to orphaned resource sweep... (important!)
+
+🧹 Starting orphaned resource sweep (these often incur charges).
+✅ No EC2 instances.
+✅ No NAT Gateways.
+✅ No Elastic IPs.
+✅ No unattached EBS volumes.
+✅ No load balancers.
+✅ No VPC endpoints.
+🗄️ RDS instances: mywebapp-rds-instance
+   ➤ DELETE ALL RDS instances (skip final snapshot)? (y/N): 
+An error occurred (InvalidParameterCombination) when calling the DeleteDBInstance operation: Cannot delete protected DB Instance, please disable deletion protection and try again.
+⚠️ Failed to delete RDS mywebapp-rds-instance
+📸 RDS manual snapshots: rds-example-snapshot-dbinstance-6sqeygtyz2es	rds-example-snapshot-dbinstance-eqiernop5xs0	rds-example-snapshot-dbinstance-ujycc2f0k2wf
+   ➤ Delete ALL manual RDS snapshots? (y/N): {
+    "DBSnapshot": {
+        "DBSnapshotIdentifier": "rds-example-snapshot-dbinstance-6sqeygtyz2es",
+        "DBInstanceIdentifier": "udacity-rds-example",
+        "SnapshotCreateTime": "2025-07-18T21:15:26.609000+00:00",
+        "Engine": "postgres",
+        "AllocatedStorage": 20,
+        "Status": "deleted",
+        "Port": 5432,
+        "AvailabilityZone": "us-east-1a",
+        "VpcId": "vpc-0a20b666df468564b",
+        "InstanceCreateTime": "2025-07-18T20:44:16.770000+00:00",
+        "MasterUsername": "username",
+        "EngineVersion": "15.8",
+        "LicenseModel": "postgresql-license",
+        "SnapshotType": "manual",
+        "OptionGroupName": "default:postgres-15",
+        "PercentProgress": 100,
+        "StorageType": "gp2",
+        "Encrypted": false,
+        "DBSnapshotArn": "arn:aws:rds:us-east-1:058264503354:snapshot:rds-example-snapshot-dbinstance-6sqeygtyz2es",
+        "IAMDatabaseAuthenticationEnabled": false,
+        "ProcessorFeatures": [],
+        "DbiResourceId": "db-Q6RFJNR67STU5KRXJEVILW2WCM",
+        "TagList": [],
+        "OriginalSnapshotCreateTime": "2025-07-18T21:15:26.609000+00:00",
+        "SnapshotTarget": "region",
+        "StorageThroughput": 0,
+        "DedicatedLogVolume": false
+    }
+}
+{
+    "DBSnapshot": {
+        "DBSnapshotIdentifier": "rds-example-snapshot-dbinstance-eqiernop5xs0",
+        "DBInstanceIdentifier": "udacity-rds-example",
+        "SnapshotCreateTime": "2025-08-12T17:53:17.067000+00:00",
+        "Engine": "postgres",
+        "AllocatedStorage": 20,
+        "Status": "deleted",
+        "Port": 5432,
+        "AvailabilityZone": "us-east-1a",
+        "VpcId": "vpc-0f65c8868058dee34",
+        "InstanceCreateTime": "2025-08-12T09:46:36.131000+00:00",
+        "MasterUsername": "username",
+        "EngineVersion": "15.8",
+        "LicenseModel": "postgresql-license",
+        "SnapshotType": "manual",
+        "OptionGroupName": "default:postgres-15",
+        "PercentProgress": 100,
+        "StorageType": "gp2",
+        "Encrypted": false,
+        "DBSnapshotArn": "arn:aws:rds:us-east-1:058264503354:snapshot:rds-example-snapshot-dbinstance-eqiernop5xs0",
+        "IAMDatabaseAuthenticationEnabled": false,
+        "ProcessorFeatures": [],
+        "DbiResourceId": "db-LXEIHQSFDXAWWNEIF6GWYLHKVQ",
+        "TagList": [],
+        "OriginalSnapshotCreateTime": "2025-08-12T17:53:17.067000+00:00",
+        "SnapshotTarget": "region",
+        "StorageThroughput": 0,
+        "DedicatedLogVolume": false
+    }
+}
+{
+    "DBSnapshot": {
+        "DBSnapshotIdentifier": "rds-example-snapshot-dbinstance-ujycc2f0k2wf",
+        "DBInstanceIdentifier": "udacity-rds-example",
+        "SnapshotCreateTime": "2025-08-11T17:59:08.488000+00:00",
+        "Engine": "postgres",
+        "AllocatedStorage": 20,
+        "Status": "deleted",
+        "Port": 5432,
+        "AvailabilityZone": "us-east-1a",
+        "VpcId": "vpc-0133781a02659a327",
+        "InstanceCreateTime": "2025-08-11T16:13:08.747000+00:00",
+        "MasterUsername": "username",
+        "EngineVersion": "15.8",
+        "LicenseModel": "postgresql-license",
+        "SnapshotType": "manual",
+        "OptionGroupName": "default:postgres-15",
+        "PercentProgress": 100,
+        "StorageType": "gp2",
+        "Encrypted": false,
+        "DBSnapshotArn": "arn:aws:rds:us-east-1:058264503354:snapshot:rds-example-snapshot-dbinstance-ujycc2f0k2wf",
+        "IAMDatabaseAuthenticationEnabled": false,
+        "ProcessorFeatures": [],
+        "DbiResourceId": "db-DZZ34ATIAW2PUYV5ZN2JQZHNNU",
+        "TagList": [],
+        "OriginalSnapshotCreateTime": "2025-08-11T17:59:08.488000+00:00",
+        "SnapshotTarget": "region",
+        "StorageThroughput": 0,
+        "DedicatedLogVolume": false
+    }
+}
+✅ No S3 buckets.
+✅ No Glue resources.
+✅ No Amazon Location resources.
+✅ No customer-managed KMS keys.
+🔔 SNS topics: arn:aws:sns:us-east-1:058264503354:budget-alerts
+   ➤ Delete ALL SNS topics? (subs go away too) (y/N): 
+🎯 Sweep complete. Re-run the script until it finds nothing. Keep an eye on Cost Explorer for the next day to confirm charges drop.
