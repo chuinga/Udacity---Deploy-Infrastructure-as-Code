@@ -20,15 +20,21 @@ Resources:
           !Sub "${ExerciseName}-vpc-id"
       SecurityGroupIngress:
         - IpProtocol: tcp
-          FromPort: 3000
-          ToPort: 3000
+          FromPort: 80
+          ToPort: 80
           SourceSecurityGroupId: !Ref LoadBalancerSecurityGroup
           
   LaunchTemplate:
     Type: AWS::EC2::LaunchTemplate
     Properties:
       LaunchTemplateData:
-        ImageId: ami-0557a15b87f6559cf
+        UserData:
+          Fn::Base64: |
+            #!/bin/bash
+            apt-get update -y
+            sudo apt-get install nginx -y
+            service nginx start
+        ImageId: ami-01f23391a59163da9
         SecurityGroupIds:
           - !Ref SecurityGroup
         InstanceType: t2.micro
@@ -106,7 +112,7 @@ Resources:
       HealthCheckProtocol: HTTP
       HealthCheckTimeoutSeconds: 8
       HealthyThresholdCount: 2
-      Port: 3000
+      Port: 80
       Protocol: HTTP
       UnhealthyThresholdCount: 5
       VpcId:

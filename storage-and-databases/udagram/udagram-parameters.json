@@ -1,6 +1,6 @@
 [
-	{
-		"ParameterKey": "Add you parameters here",
-		"ParameterValue": "Add you parameters here"
-	}
+    {
+        "ParameterKey": "ExerciseName",
+        "ParameterValue": "udacity-loadbalancing-exercise"
+    }
 ]
