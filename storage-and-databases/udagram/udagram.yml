@@ -17,7 +17,7 @@ Resources:
       GroupDescription: !Ref ExerciseName
       VpcId:
         Fn::ImportValue:
-          !Sub "${ExerciseName}-vpc-id"
+          !Sub "${ExerciseName}-VPCID"
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 80
@@ -34,7 +34,32 @@ Resources:
             apt-get update -y
             sudo apt-get install nginx -y
             service nginx start
-        ImageId: ami-01f23391a59163da9
+
+            # Define the directory where the index.html will be placed
+            WEB_DIR="/var/www/html"
+
+            # Create a basic index.html file
+            cat <<EOF > index.html
+            <!DOCTYPE html>
+            <html>
+            <head>
+                <title>It works! Udagram, Udacity</title>
+            </head>
+            <body>
+                <h1>It works! Udagram, Udacity</h1>
+                <p>This website is hosted on Nginx</p>
+            </body>
+            </html>
+            EOF
+
+            # Copy index.html to the Nginx web directory
+            sudo rm -r $WEB_DIR/index.*
+            sudo cp index.html $WEB_DIR
+
+            # Reload Nginx to apply changes
+            sudo systemctl reload nginx
+
+        ImageId: ami-0360c520857e3138f
         SecurityGroupIds:
           - !Ref SecurityGroup
         InstanceType: t2.micro
@@ -48,7 +73,7 @@ Resources:
     Properties:
       VPCZoneIdentifier:
         - Fn::ImportValue:
-            !Sub "${ExerciseName}-private-subnets"
+            !Sub "${ExerciseName}-PRIV-NETS"
       LaunchTemplate:
         LaunchTemplateId: !Ref LaunchTemplate
         Version: !GetAtt LaunchTemplate.LatestVersionNumber
@@ -64,7 +89,7 @@ Resources:
       GroupDescription: Allow http access to our load balancer
       VpcId:
         Fn::ImportValue:
-          !Sub "${ExerciseName}-vpc-id"
+          !Sub "${ExerciseName}-VPCID"
       SecurityGroupIngress:
         - IpProtocol: tcp
           FromPort: 80
@@ -75,8 +100,8 @@ Resources:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
       Subnets:
-        - Fn::ImportValue: !Sub "${ExerciseName}-public-subnet1"
-        - Fn::ImportValue: !Sub "${ExerciseName}-public-subnet2"
+        - Fn::ImportValue: !Sub "${ExerciseName}-PUB1-SN"
+        - Fn::ImportValue: !Sub "${ExerciseName}-PUB2-SN"
       SecurityGroups:
         - Ref: LoadBalancerSecurityGroup
 
@@ -117,4 +142,54 @@ Resources:
       UnhealthyThresholdCount: 5
       VpcId:
         Fn::ImportValue:
-          Fn::Sub: "${ExerciseName}-vpc-id"
+          Fn::Sub: "${ExerciseName}-VPCID"
+
+  # The S3 bucket
+  S3Bucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: "udacity-project-chuinga1981"
+      AccessControl: Private
+      VersioningConfiguration:
+        Status: Enabled
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault:
+              SSEAlgorithm: AES256
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
+
+  # Role and profile to read data from S3Bucket (and write if needed) 
+  InstanceRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Ref ExerciseName
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: 'Allow'
+          Principal:
+            Service:
+            - 'ec2.amazonaws.com'
+          Action:
+          - 'sts:AssumeRole'
+      Policies:
+        - PolicyName: s3
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+            - Effect: Allow
+              Action:
+              - 's3:PutObject'
+              - 's3:GetObject'
+              Resource:
+                - !GetAtt S3Bucket.Arn
+  InstanceProfile:
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      Path: '/'
+      Roles:
+      - !Ref InstanceRole
