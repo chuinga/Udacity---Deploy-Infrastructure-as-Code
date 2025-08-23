@@ -1,0 +1,28 @@
+📜 Logging to ./delete-logs/delete-log-2025-08-17_22-36-18.txt
+🔒 Checking AWS identity...
+🚨 You are logged in as:
+👤 User:       Udacity
+🔗 ARN:        arn:aws:iam::058264503354:user/Udacity
+🏢 Account ID: 058264503354
+🌍 Region:     us-east-1
+
+❓ Is this the right account to wreak havoc on? (y/N): 🕵️ Scanning for active CloudFormation stacks...
+🎉 No active stacks found.
+➡️  Proceeding directly to orphaned resource sweep... (important!)
+
+🧹 Starting orphaned resource sweep (these often incur charges).
+✅ No EC2 instances.
+✅ No NAT Gateways.
+✅ No Elastic IPs.
+✅ No unattached EBS volumes.
+✅ No load balancers.
+✅ No VPC endpoints.
+✅ No RDS instances.
+✅ No manual RDS snapshots.
+✅ No S3 buckets.
+✅ No Glue resources.
+✅ No Amazon Location resources.
+✅ No customer-managed KMS keys.
+✅ No SNS topics.
+
+🎯 Sweep complete. Re-run the script until it finds nothing. Keep an eye on Cost Explorer for the next day to confirm charges drop.

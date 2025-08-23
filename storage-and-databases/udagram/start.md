@@ -1,3 +1,1 @@
-->Rollback started
-->Possibly need network stack or servers stack or both
-->Try again
+./create_udagram.sh --profile udacity
