@@ -187,6 +187,8 @@ Resources:
               - 's3:GetObject'
               Resource:
                 - !GetAtt S3Bucket.Arn
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore
   InstanceProfile:
     Type: AWS::IAM::InstanceProfile
     Properties:

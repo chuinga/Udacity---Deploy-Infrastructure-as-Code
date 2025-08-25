@@ -17,7 +17,7 @@ set -u
 set -o pipefail
 
 # === CREATE LOG FOLDER AND FILE ===
-LOG_DIR="./delete-logs"
+LOG_DIR="./logs/delete-all-stacks"
 TIMESTAMP=$(date +"%Y-%m-%d_%H-%M-%S")
 LOG_FILE="$LOG_DIR/delete-log-$TIMESTAMP.txt"
 

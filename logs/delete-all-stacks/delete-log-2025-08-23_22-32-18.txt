@@ -1,0 +1,49 @@
+📜 Logging to ./delete-logs/delete-log-2025-08-23_22-32-18.txt
+🔒 Checking AWS identity...
+🚨 You are logged in as:
+👤 User:       Udacity
+🔗 ARN:        arn:aws:iam::058264503354:user/Udacity
+🏢 Account ID: 058264503354
+🌍 Region:     us-east-1
+
+❓ Is this the right account to wreak havoc on? (y/N): 🕵️ Scanning for active CloudFormation stacks...
+🧨 Here are your active stacks:
+ [1] 💣 udagramserver
+ [2] 💣 ourdemoinfra
+
+🔢 Enter the numbers of the stacks you want to delete (e.g., 1 3 4), or press Enter to skip stack deletion: ⚠️ You selected the following stacks for deletion:
+   💥 udagramserver
+   💥 ourdemoinfra
+
+🚨 Final confirmation — delete these stacks? (y/N): 🧭 Resolving StackIds for selected stacks...
+🧠 Analyzing stack dependencies (Exports/Imports)...
+🗺️ Deletion order (importers → exporters):
+   💥 udagramserver
+   💥 ourdemoinfra
+⏳ Initiating deletions in the computed order...
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🛡️ Checking termination protection for: udagramserver ...
+🗑️ Initiating deletion of stack: udagramserver ...
+⏳ Waiting for udagramserver to be deleted...
+✅ Stack udagramserver deleted.
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🛡️ Checking termination protection for: ourdemoinfra ...
+🗑️ Initiating deletion of stack: ourdemoinfra ...
+⏳ Waiting for ourdemoinfra to be deleted...
+✅ Stack ourdemoinfra deleted.
+
+🧹 Starting orphaned resource sweep (these often incur charges).
+✅ No EC2 instances.
+✅ No NAT Gateways.
+✅ No Elastic IPs.
+✅ No unattached EBS volumes.
+✅ No load balancers.
+✅ No VPC endpoints.
+✅ No RDS instances.
+✅ No manual RDS snapshots.
+✅ No S3 buckets.
+✅ No Glue resources.
+      0 [main] bash 3112 dofork: child -1 - forked process 43888 died unexpectedly, retry 0, exit code 0xC000026B, errno 11
+./delete-all-stacks.sh: fork: retry: Resource temporarily unavailable
